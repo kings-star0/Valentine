@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zara ❤️ Be My Valentine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            font-family: Arial, sans-serif;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            max-width: 330px;
+            z-index: 2;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        }
+
+        h1 {
+            color: #ff4d6d;
+        }
+
+        p {
+            color: #444;
+            font-size: 16px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        .no {
+            background-color: #ddd;
+            color: #555;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            font-size: 20px;
+            animation: floatUp linear forwards, pulse 1.2s infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0);
+                opacity: 0.8;
+            }
+            to {
+                transform: translateY(-120vh);
+                opacity: 0;
+            }
+        }
+
+        /* Beat-style pulse */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Zara 💕</h1>
+    <p>
+        I’ve been meaning to ask you something…<br><br>
+        Will you be my Valentine?
+    </p>
+
+    <button id="yesBtn" class="yes" onclick="yesClicked()">Yes 💖</button>
+    <button class="no" onclick="noClicked(this)">No 🙈</button>
+</div>
+
+<script>
+    let yesScale = 1;
+
+    function noClicked(button) {
+        const yesBtn = document.getElementById("yesBtn");
+        yesScale += 0.3;
+        yesBtn.style.transform = `scale(${yesScale})`;
+        button.style.display = "none";
+    }
+
+    function yesClicked() {
+        // Open Spotify
+        window.open(
+            "https://open.spotify.com/search/all%20my%20love%20coldplay",
+            "_blank"
+        );
+
+        document.body.innerHTML = `
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                height:100vh;
+                font-family:Arial;
+                background:linear-gradient(135deg,#ff758c,#ff7eb3);
+                color:white;
+                text-align:center;
+                z-index:2;
+            ">
+                <div>
+                    <h1>Yay, Zara! 💕</h1>
+                    <p>You just made me really happy 😊</p>
+                </div>
+            </div>
+        `;
+
+        startHearts();
+    }
+
+    function startHearts() {
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (4 + Math.random() * 2) + "s";
+            heart.style.fontSize = (16 + Math.random() * 20) + "px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 600); // ~beat pulse timing
+    }
+</script>
+
+</body>
+</html>
